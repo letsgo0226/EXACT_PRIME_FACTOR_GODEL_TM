@@ -5,11 +5,12 @@ INTERVAL="${1:-${EPFG_INTERVAL:-1}}"
 LOG="${EPFG_LOG:-exact_prime_factor_godel_tm_daemon.log}"
 DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd || pwd)"
 SCRIPT="${EPFG_SCRIPT:-$DIR/EXACT_PRIME_FACTOR_GODEL_TM.sh}"
-RAW_URL="https://raw.githubusercontent.com/letsgo0226/EXACT_PRIME_FACTOR_GODEL_TM/main/EXACT_PRIME_FACTOR_GODEL_TM.sh"
+RAW_URL="https://raw.githubusercontent.com/letsgo0226/EXACT_PRIME_FACT_OR_GODEL_TM/main/EXACT_PRIME_FACTOR_GODEL_TM.sh"
+RAW_URL_ALT="https://raw.githubusercontent.com/letsgo0226/EXACT_PRIME_FACTOR_GODEL_TM/main/EXACT_PRIME_FACTOR_GODEL_TM.sh"
 if [[ ! -f "$SCRIPT" ]]; then
   command -v curl >/dev/null || exit 127
   SCRIPT="${TMPDIR:-/tmp}/EXACT_PRIME_FACTOR_GODEL_TM.sh"
-  curl -fsSL "$RAW_URL" -o "$SCRIPT" || exit 1
+  curl -fsSL "$RAW_URL" -o "$SCRIPT" || curl -fsSL "$RAW_URL_ALT" -o "$SCRIPT" || exit 1
 fi
 command -v python3 >/dev/null || exit 127
 echo "{\"daemon\":\"EXACT_PRIME_FACTOR_GODEL_TM\",\"interval\":$INTERVAL,\"ts\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}" | tee -a "$LOG"
