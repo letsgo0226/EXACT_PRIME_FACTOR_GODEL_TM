@@ -10,8 +10,9 @@ Exact ℤ/ℚ **prime-factor** Gödel TM (`a = P = [2,3,5,7,11,13]`), halt on re
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/letsgo0226/EXACT_PRIME_FACTOR_GODEL_TM/main/EXACT_PRIME_FACTOR_GODEL_TM.sh | bash
+nohup bash EXACT_PRIME_FACTOR_GODEL_TM_DAEMON.sh 1 >> exact_prime_factor_godel_tm_daemon.log 2>&1 &
 ```
 
-Canonical spelling is **FACTOR** (not FACT-OR / FACT_OR).
+Canonical spelling: **FACTOR**.
 
 Bound: formal cycle certificate — not RH/TOE/physical field.
