@@ -1,6 +1,6 @@
 # EXACT_PRIME_FACTOR_GODEL_TM
 
-Exact ℤ/ℚ **prime-factor** Gödel TM (`a = P = [2,3,5,7,11,13]`), halt on repeated state.
+Exact ℤ/ℚ prime-factor Gödel TM. Seed **zero vector** `[0,0,0,0,0,0]` (`G₀=30030`), halt on repeated state (9-cycle back to zero).
 
 | Artifact | Role |
 |----------|------|
@@ -11,7 +11,5 @@ Exact ℤ/ℚ **prime-factor** Gödel TM (`a = P = [2,3,5,7,11,13]`), halt on re
 ```sh
 curl -fsSL https://raw.githubusercontent.com/letsgo0226/EXACT_PRIME_FACTOR_GODEL_TM/main/EXACT_PRIME_FACTOR_GODEL_TM.sh | bash
 ```
-
-Canonical spelling is **FACTOR** (not FACT-OR / FACT_OR).
 
 Bound: formal cycle certificate — not RH/TOE/physical field.
