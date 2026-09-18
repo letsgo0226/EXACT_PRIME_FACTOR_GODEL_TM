@@ -1,0 +1,46 @@
+name: EXACT_PRIME_FACT_OR_GODEL_TM
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  push:
+    branches: [main, master]
+    paths:
+      - "EXACT_PRIME_FACT_OR_GODEL_TM.sh"
+      - "EXACT_PRIME_FACT_OR_GODEL_TM.md"
+      - ".github/workflows/exact_prime_fact_or_godel_tm.yml"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [exact_prime_fact_or_godel_tm]
+
+permissions:
+  contents: read
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify halt-on-cycle exact Z/Q
+        run: |
+          set -euo pipefail
+          BYTES=$(wc -c < EXACT_PRIME_FACT_OR_GODEL_TM.sh | tr -d ' ')
+          echo "bytes=$BYTES"
+          test "$BYTES" -lt 2048
+          bash EXACT_PRIME_FACT_OR_GODEL_TM.sh | tee cert.json
+          python3 - <<'PY'
+          import json
+          o=json.load(open("cert.json"))
+          assert o.get("model")=="EXACT_PRIME_FACTOR_GODEL_TM"
+          assert o.get("exact") is True and o.get("halted")==1
+          assert o.get("open")==0 and o.get("final")==1
+          assert o.get("seed")==[2,3,5,7,11,13]
+          assert o.get("omega_attained")==0 and o.get("program_equals_zeta")==0
+          assert o["steps"]==len(o["levels"])
+          print("PASS", o["steps"], o.get("repeated_state"))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: exact-prime-fact-or-godel-tm-certificate
+          path: cert.json
